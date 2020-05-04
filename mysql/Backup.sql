@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `Contacts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Contacts` (
   `Id` varchar(36) DEFAULT NULL,
-  `CustomerID` varchar(36) DEFAULT NULL,
+  `CustomerId` varchar(36) DEFAULT NULL,
   `PhoneNumber` varchar(12) DEFAULT NULL,
   `Email` varchar(39) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -106,7 +106,7 @@ CREATE TABLE `Orders` (
   `DateCreated` varchar(19) DEFAULT NULL,
   `Status` varchar(9) DEFAULT NULL,
   `TotalPrice` decimal(7,2) DEFAULT NULL,
-  `CustomerID` varchar(36) DEFAULT NULL
+  `CustomerId` varchar(36) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

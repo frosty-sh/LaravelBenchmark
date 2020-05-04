@@ -10,7 +10,7 @@ class Order extends Model
 
     public function Customer()
     {
-        return $this->hasOne('App\Customer', 'Id', 'CustomerID');
+        return $this->hasOne('App\Customer', 'Id', 'CustomerId');
     }
 
     public function OrderItems()

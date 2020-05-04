@@ -9,6 +9,6 @@ class Customer extends Model
     protected $table = 'Customers';
 
     public function Contact(){
-        return $this->hasOne('App\Contact', 'CustomerID' , 'Id');
+        return $this->hasOne('App\Contact', 'CustomerId' , 'Id');
     }
 }
