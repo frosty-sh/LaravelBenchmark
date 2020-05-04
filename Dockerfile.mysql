@@ -1,0 +1,4 @@
+FROM mysql:5.7.29
+
+# Copy the backup into the initdb
+COPY ./mysql/Backup.sql /docker-entrypoint-initdb.d
