@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Performance\Performance;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +20,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/customers', function (){
+    Performance::point();
     $users = DB::table('Customers')->select('*')->get();
+    Performance::point();
     $json = $users->toJson();
+    Performance::finish();
+    Performance::results();
     return $json;
 });
 
 Route::get('/orders', function (){
-    // $orders = DB::table('Orders')
-    // ->join('Customers', 'Orders.CustomerId', '=', 'Customers.Id')
-    // ->join('OrderItems', 'Orders.Id', '=', 'OrderItems.OrderId')
-    // ->select('*')
-    // ->get();
-    return App\Order::with('Customer.Contact')->with('OrderItems.Product')->get();
+    Performance::point();
+    $orders = App\Order::with('Customer.Contact')->with('OrderItems.Product')->get();
+    Performance::point();
+    $json = $orders->toJson();
+    Performance::results();
+    return $orders;
+});
+
+Route::get('/customersql', function (){
+    return App\Customer::all();
 });
