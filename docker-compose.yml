@@ -82,15 +82,3 @@ services:
         entrypoint: ["php", "/var/www/html/artisan"]
         networks:
             - laravel
-
-    # mssql:
-    #     image: mcr.microsoft.com/mssql/server:2019-latest
-    #     container_name: mssql
-    #     environment:
-    #         SA_PASSWORD: "Your_password123"
-    #         ACCEPT_EULA: "Y"
-    #     networks:
-    #         - laravel
-    #     ports:
-    #         - "2433:1433"
-    #         - "2434:1434"

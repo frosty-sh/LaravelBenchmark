@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Performance\Performance;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +20,28 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/customers', function (){
+Route::get('/contactsJSON', function (){
     Performance::point();
-    $users = DB::table('Customers')->select('*')->get();
+    $contacts = App\Contact::all();
     Performance::point();
-    $json = $users->toJson();
-    Performance::finish();
-    Performance::results();
-    return $json;
+    $export = Performance::export();
+    print_r($export->toFile(Carbon::now()->format('j_H-m-s') . '_single.json'));
+    return $contacts;
 });
 
-Route::get('/orders', function (){
+Route::get('/contacts', function (){
+    return App\Contact::all();
+});
+
+Route::get('/ordersJSON', function (){
     Performance::point();
     $orders = App\Order::with('Customer.Contact')->with('OrderItems.Product')->get();
     Performance::point();
-    $json = $orders->toJson();
-    Performance::results();
+    $export = Performance::export();
+    print_r($export->toFile(Carbon::now()->format('j_H-m-s') . '_multiple.json'));
     return $orders;
 });
 
-Route::get('/customersql', function (){
-    return App\Customer::all();
+Route::get('/orders', function (){
+    return App\Order::with('Customer.Contact')->with('OrderItems.Product')->get();;
 });
